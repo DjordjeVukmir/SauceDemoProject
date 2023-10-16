@@ -73,7 +73,7 @@ public class BaseTest {
         burgerMenuPage = new BurgerMenuPage();
         checkoutPageOne = new CheckoutPageOne();
         checkoutPageTwo = new CheckoutPageTwo();
-        excelReader = new ExcelReader("src/test/java/loginDataSauce.xlsx");
+        excelReader = new ExcelReader("src\\test\\java\\loginDataSauce.xlsx");
 
     }
 

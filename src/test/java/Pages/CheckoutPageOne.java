@@ -16,13 +16,13 @@ public class CheckoutPageOne extends BaseTest {
     @FindBy(id = "first-name")
     WebElement firstnameField;
     public void enterFirstname(String firstname){
-        firstnameField.sendKeys();
+        firstnameField.sendKeys(firstname);
     }
 
     @FindBy(id = "last-name")
     WebElement lastnameField;
     public void enterLastname(String lastname){
-        lastnameField.sendKeys();
+        lastnameField.sendKeys(lastname);
     }
     @FindBy(id = "postal-code")
     WebElement zipcodeField;
