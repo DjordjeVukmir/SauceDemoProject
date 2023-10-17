@@ -1,6 +1,7 @@
 package Test;
 
 import Base.BaseTest;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -84,5 +85,12 @@ public class Login extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/v1/index.html");
         Assert.assertTrue(mainPage.error.isDisplayed());
     }
+
+//    @Test
+//    public void errorTextPrinter(){
+//        mainPage.clickLogin();
+//        String a = driver.findElement(By.cssSelector("#login_button_container > div > form > h3")).getText();
+//        System.out.println(a);
+//    }
 
 }

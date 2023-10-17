@@ -1,5 +1,7 @@
     package Base;
 
+    import org.apache.poi.ss.usermodel.CellType;
+    import org.apache.poi.ss.usermodel.Row;
     import org.apache.poi.xssf.usermodel.XSSFCell;
     import org.apache.poi.xssf.usermodel.XSSFRow;
     import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -26,8 +28,13 @@
         public String getStringData(String sheetName, int rowNumber, int cellNumber) {
             sheet = wb.getSheet(sheetName);
             row = sheet.getRow(rowNumber);
-            cell = row.getCell(cellNumber);
-            return cell.getStringCellValue();
+            cell = row.getCell(cellNumber, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+
+            if (cell == null) {
+                return ""; // Return an empty string for empty cells
+            } else {
+                return cell.getStringCellValue();
+            }
         }
 
         public int getIntegerData(String sheetName, int rowNumber, int cellNumber) {

@@ -27,6 +27,7 @@ public class Cart extends BaseTest {
         for (WebElement element : cartPage.cartList) {
             Assert.assertTrue(element.isDisplayed());
         }
+        cartPage.printCartItems();
 
     }
 
@@ -47,12 +48,12 @@ public class Cart extends BaseTest {
         Assert.assertEquals(cartPage.cartList.size(), 0);
     }
 
-    @Test
-    public void printer(){
-        cartPage.clickOnCart();
-        for(WebElement element : cartPage.cartRemoveButton){
-            System.out.println(element.getText());
-        }
-
-    }
+//    @Test
+//    public void printer(){
+//        cartPage.clickOnCart();
+//        for(WebElement element : cartPage.cartRemoveButton){
+//            System.out.println(element.getText());
+//        }
+//
+//    }
 }

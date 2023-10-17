@@ -28,12 +28,14 @@ public class BaseTest {
     public BurgerMenuPage burgerMenuPage;
     public CheckoutPageOne checkoutPageOne;
     public CheckoutPageTwo checkoutPageTwo;
+    public CheckoutComplete checkoutComplete;
     public String standardUsername = "standard_user";
     public String problemUsername = "problem_user";
     public String lockedOutUsername = "locked_out_user";
     public String performanceGlitchUsername = "performance_glitch_user";
     public String password = "secret_sauce";
     public ExcelReader excelReader;
+    public ExcelReader excelReaderInvalid;
 
     public String getStandardUsername() {
         return standardUsername;
@@ -74,6 +76,8 @@ public class BaseTest {
         checkoutPageOne = new CheckoutPageOne();
         checkoutPageTwo = new CheckoutPageTwo();
         excelReader = new ExcelReader("src\\test\\java\\loginDataSauce.xlsx");
+        excelReaderInvalid = new ExcelReader("src\\test\\java\\invalidDataSauce.xlsx");
+        checkoutComplete = new CheckoutComplete();
 
     }
 

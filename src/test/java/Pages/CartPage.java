@@ -52,4 +52,17 @@ public class CartPage extends BaseTest {
     @FindBy(css = ".fa-layers-counter.shopping_cart_badge")
     public WebElement cartCounter;
 
+    @FindBy(className = "inventory_item_name")
+    List<WebElement> cartItems;
+
+    public List<WebElement> getCartItems() {
+        return cartItems;
+    }
+
+    public void printCartItems(){
+        for(WebElement element : cartItems){
+            System.out.println(element.getText());
+        }
+    }
+
 }
