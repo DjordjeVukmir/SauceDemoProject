@@ -1,4 +1,4 @@
-package BurgerMenu_SideBar;
+package Sidebars_And_Dropdown_Menus;
 
 import Base.BaseTest;
 import org.openqa.selenium.WebElement;

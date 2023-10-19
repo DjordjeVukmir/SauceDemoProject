@@ -1,7 +1,8 @@
 package Base;
 
-import BurgerMenu_SideBar.BurgerMenuPage;
+import Sidebars_And_Dropdown_Menus.BurgerMenuPage;
 import Pages.*;
+import Sidebars_And_Dropdown_Menus.SorterDropdownPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;

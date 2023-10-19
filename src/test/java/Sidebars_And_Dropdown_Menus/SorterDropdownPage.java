@@ -1,4 +1,4 @@
-package Pages;
+package Sidebars_And_Dropdown_Menus;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

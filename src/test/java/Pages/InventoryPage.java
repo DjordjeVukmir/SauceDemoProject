@@ -1,12 +1,11 @@
 package Pages;
 
 import Base.BaseTest;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryPage extends BaseTest {
@@ -45,11 +44,37 @@ public class InventoryPage extends BaseTest {
         return itemNamesList;
     }
 
+    public ArrayList names(){
+        ArrayList names = new ArrayList<>();
+        for (WebElement element : getItemNamesList()){
+            names.add(element.getText());
+        }
+        return names;
+    }
+
     @FindBy(className = "inventory_item_price")
     List<WebElement> itemPriceList;
 
     public List<WebElement> getItemPriceList() {
         return itemPriceList;
     }
+
+    public List<Double> extractPrices() {
+        List<Double> prices = new ArrayList<>();
+        for (WebElement element : getItemPriceList()) {
+            String priceText = element.getText();
+            // Remove dollar signs
+            priceText = priceText.replaceAll("[^0-9.]", "");
+
+            try {
+                double priceValue = Double.valueOf(priceText);
+                prices.add(priceValue);
+            } catch (NumberFormatException e) {
+                // Try catch, just in case
+            }
+        }
+        return prices;
+    }
+
 }
 

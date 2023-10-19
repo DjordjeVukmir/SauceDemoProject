@@ -124,58 +124,27 @@ public class Inventory extends BaseTest {
     }
     @Test
     public void verifySortingZtoAFunctionsProperly(){
-
         //List of names before sorting
-        ArrayList itemNamesAZ = new ArrayList<>();
-        for (WebElement element : inventoryPage.getItemNamesList()){
-            itemNamesAZ.add(element.getText());
-        }
-        //Reversed original list
+        ArrayList itemNamesAZ = inventoryPage.names();
+                //Reversed original list
         Collections.sort(itemNamesAZ, Collections.reverseOrder());
         //------------------------------------------
         //Choosing how to sort
         sorterDropdownPage.selectZtoA();
-
         //New list of sorted item names
-        ArrayList itemNamesAfterSorting = new ArrayList<>();
-        for (WebElement element : inventoryPage.getItemNamesList()){
-            itemNamesAfterSorting.add(element.getText());
-        }
+        ArrayList itemNamesAfterSorting = inventoryPage.names();
+
         Assert.assertEquals(itemNamesAZ, itemNamesAfterSorting);
 
     }
     @Test
     public void verifySortingPricesWorksProperly() {
-        List<Double> prices = new ArrayList<>();
-        for (WebElement element : inventoryPage.getItemPriceList()) {
-            String priceText = element.getText();
-            // Remove dollar signs
-            priceText = priceText.replaceAll("[^0-9.]", "");
-
-            try {
-                double priceValue = Double.valueOf(priceText);
-                prices.add(priceValue);
-            } catch (NumberFormatException e) {
-                // Try catch, just in case
-            }
-        }
+        List<Double> prices = inventoryPage.extractPrices(); //Getting prices from the inventory page
         //Sorting prices LOW TO HIGH
         Collections.sort(prices);
         sorterDropdownPage.selectLowHi();
         //New list of prices
-        List<Double> pricesLowHigh = new ArrayList<>();
-        for (WebElement element : inventoryPage.getItemPriceList()) {
-            String priceText = element.getText();
-            // Remove dollar signs
-            priceText = priceText.replaceAll("[^0-9.]", "");
-
-            try {
-                double priceValue = Double.valueOf(priceText);
-                pricesLowHigh.add(priceValue);
-            } catch (NumberFormatException e) {
-                // Try catch, just in case
-            }
-        }
+        List<Double> pricesLowHigh = inventoryPage.extractPrices(); //Getting prices that are now sorted
         Assert.assertEquals(prices, pricesLowHigh);
 
 
