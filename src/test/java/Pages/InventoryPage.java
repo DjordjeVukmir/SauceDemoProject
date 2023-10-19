@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -37,9 +38,18 @@ public class InventoryPage extends BaseTest {
     @FindBy(css = ".btn_secondary.btn_inventory")
     public List<WebElement> removeButtons;
 
+    @FindBy(className = "inventory_item_name")
+    List<WebElement> itemNamesList;
 
+    public List<WebElement> getItemNamesList() {
+        return itemNamesList;
+    }
 
+    @FindBy(className = "inventory_item_price")
+    List<WebElement> itemPriceList;
 
-
+    public List<WebElement> getItemPriceList() {
+        return itemPriceList;
+    }
 }
 

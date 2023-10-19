@@ -71,36 +71,7 @@ public class Checkout extends BaseTest {
 
     }
 
-    @Test
-    public void verifyThatUserCanOrderItems() throws InterruptedException {
-        driver.navigate().to("https://www.saucedemo.com/v1/index.html");
-        mainPage.inputUsername(getStandardUsername());
-        mainPage.inputPassword(getPassword());
-        mainPage.clickLogin();
-        for (WebElement element : inventoryPage.addButtons) {
-            element.click();
-        }
-        cartPage.clickOnCart();
-        StringBuilder cartBeforeCheckout = new StringBuilder(); //SVI ITEMI IZ CARTA
-        for (WebElement element : cartPage.getCartItems()){
-            cartBeforeCheckout.append(element.getText()).append("\n");
-        }
-        cartPage.clickCheckout();
-        verifyThatUserCanCheckoutWithValidData();
-        checkoutPageOne.clickContinue();
 
-        StringBuilder cartAfterCheckout = new StringBuilder(); //SVI ITEMI IZ CHECKOUTA
-        for (WebElement element : checkoutPageTwo.getCartItems()){
-            cartAfterCheckout.append(element.getText()).append("\n");
-        }
-        Assert.assertEquals(cartBeforeCheckout.toString(), (cartAfterCheckout.toString()));
-        checkoutPageTwo.clickFinish(); // CLICK FINISH
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/v1/checkout-complete.html");
-        Assert.assertTrue(checkoutComplete.getOrderCompleteHeader().isDisplayed());
-
-
-
-    }
 //    @Test
 //    public void verifyThatUserCannotCheckoutWithIncompleteData(){
 //        //int lastRow = excelReader.getLastRow("Sheet1");

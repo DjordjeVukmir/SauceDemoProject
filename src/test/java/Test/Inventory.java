@@ -7,6 +7,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Inventory extends BaseTest {
 
 
@@ -17,6 +21,7 @@ public class Inventory extends BaseTest {
         mainPage.inputUsername(getStandardUsername());
         mainPage.inputPassword(getPassword());
         mainPage.clickLogin();
+
     }
 
 
@@ -84,11 +89,6 @@ public class Inventory extends BaseTest {
 
     @Test
     public void verify_that_all_items_in_store_can_be_added_to_cart(){    //Verifying that every single item can be added to cart
-        driver.navigate().to("https://www.saucedemo.com/v1/index.html");
-        mainPage.inputUsername(getStandardUsername());
-        mainPage.inputPassword(getPassword());
-        mainPage.clickLogin();
-        System.out.println(inventoryPage.addButtons.size());
         for(WebElement element : inventoryPage.addButtons){
             element.click();
         }
@@ -101,11 +101,7 @@ public class Inventory extends BaseTest {
 
     @Test
     public void verify_that_the_cart_counter_increased(){
-        driver.navigate().to("https://www.saucedemo.com/v1/index.html");
-        mainPage.inputUsername(getStandardUsername());
-        mainPage.inputPassword(getPassword());
-        mainPage.clickLogin();
-        System.out.println(inventoryPage.addButtons.size());
+
         for(WebElement element : inventoryPage.addButtons){
             element.click();
         }
@@ -116,7 +112,6 @@ public class Inventory extends BaseTest {
     @Test
     public void verify_that_all_items_can_be_removed_from_cart(){
 
-        System.out.println(inventoryPage.addButtons.size());
         for(WebElement element : inventoryPage.addButtons){
             element.click();
         }
@@ -126,6 +121,65 @@ public class Inventory extends BaseTest {
         for(WebElement element : inventoryPage.addButtons){
             Assert.assertTrue(element.isDisplayed());
         }
+    }
+    @Test
+    public void verifySortingZtoAFunctionsProperly(){
+
+        //List of names before sorting
+        ArrayList itemNamesAZ = new ArrayList<>();
+        for (WebElement element : inventoryPage.getItemNamesList()){
+            itemNamesAZ.add(element.getText());
+        }
+        //Reversed original list
+        Collections.sort(itemNamesAZ, Collections.reverseOrder());
+        //------------------------------------------
+        //Choosing how to sort
+        sorterDropdownPage.selectZtoA();
+
+        //New list of sorted item names
+        ArrayList itemNamesAfterSorting = new ArrayList<>();
+        for (WebElement element : inventoryPage.getItemNamesList()){
+            itemNamesAfterSorting.add(element.getText());
+        }
+        Assert.assertEquals(itemNamesAZ, itemNamesAfterSorting);
+
+    }
+    @Test
+    public void verifySortingPricesWorksProperly() {
+        List<Double> prices = new ArrayList<>();
+        for (WebElement element : inventoryPage.getItemPriceList()) {
+            String priceText = element.getText();
+            // Remove dollar signs
+            priceText = priceText.replaceAll("[^0-9.]", "");
+
+            try {
+                double priceValue = Double.valueOf(priceText);
+                prices.add(priceValue);
+            } catch (NumberFormatException e) {
+                // Try catch, just in case
+            }
+        }
+        //Sorting prices LOW TO HIGH
+        Collections.sort(prices);
+        sorterDropdownPage.selectLowHi();
+        //New list of prices
+        List<Double> pricesLowHigh = new ArrayList<>();
+        for (WebElement element : inventoryPage.getItemPriceList()) {
+            String priceText = element.getText();
+            // Remove dollar signs
+            priceText = priceText.replaceAll("[^0-9.]", "");
+
+            try {
+                double priceValue = Double.valueOf(priceText);
+                pricesLowHigh.add(priceValue);
+            } catch (NumberFormatException e) {
+                // Try catch, just in case
+            }
+        }
+        Assert.assertEquals(prices, pricesLowHigh);
+
+
+
     }
 
 

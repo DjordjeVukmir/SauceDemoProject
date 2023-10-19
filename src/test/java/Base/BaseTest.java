@@ -29,6 +29,8 @@ public class BaseTest {
     public CheckoutPageOne checkoutPageOne;
     public CheckoutPageTwo checkoutPageTwo;
     public CheckoutComplete checkoutComplete;
+
+    public SorterDropdownPage sorterDropdownPage;
     public String standardUsername = "standard_user";
     public String problemUsername = "problem_user";
     public String lockedOutUsername = "locked_out_user";
@@ -36,6 +38,7 @@ public class BaseTest {
     public String password = "secret_sauce";
     public ExcelReader excelReader;
     public ExcelReader excelReaderInvalid;
+
 
     public String getStandardUsername() {
         return standardUsername;
@@ -78,11 +81,12 @@ public class BaseTest {
         excelReader = new ExcelReader("src\\test\\java\\loginDataSauce.xlsx");
         excelReaderInvalid = new ExcelReader("src\\test\\java\\invalidDataSauce.xlsx");
         checkoutComplete = new CheckoutComplete();
+        sorterDropdownPage = new SorterDropdownPage();
 
     }
 
     @AfterMethod
-    public void tearDown(ITestResult result) throws IOException, InterruptedException {
+    public void failureScreenshot(ITestResult result) throws IOException, InterruptedException {
         if (result.getStatus() == ITestResult.FAILURE || result.getStatus() == ITestResult.SKIP) {
             File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             File savedScreenshot = new File("target/screenshots/" + System.currentTimeMillis() + ".jpg");
@@ -90,8 +94,8 @@ public class BaseTest {
         }
     }
     @AfterClass
-    public void driverQuit() throws InterruptedException {
-        //Thread.sleep(2000);
-        //driver.quit();
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.quit();
     }
 }
